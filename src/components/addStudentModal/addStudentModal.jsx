@@ -1,22 +1,58 @@
 import { useState } from "react";
+import * as yup from "yup";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import Form from "react-bootstrap/Form";
 
-function AddStudentModal() {
+function AddStudentModal(props) {
   const [studentName, setStudentName] = useState("");
   const [email, setEmail] = useState("");
   const [rollNo, setRollNo] = useState("");
   const [course, setCourse] = useState("");
   const [age, setAge] = useState("");
+  const [error, setError] = useState('')
 
+  let schema = yup.object().shape({
+    studentName: yup.string().max(10).min(3).required('Student name is required'),
+    email: yup.string().email('Must be a valid email').required('Email is required'),
+    rollNo: yup.number().required().typeError("Must be a number"),
+    course: yup.string().required('Course is required'),
+    age: yup.number().required('Age is required'),
+  }); 
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
+  const addStudent = async () => {
+    handleClose();
+    let data = {
+      studentName: studentName,
+      email: email,
+      rollNo: rollNo,
+      course: course,
+      age: age,
+    };
+
+    try {
+      let result = await schema.validate(data);
+      console.log(result);
+      props.onAddHandler(data);
+    } catch (error) {
+      console.log("error", error.toString());
+      setError(error.toString())
+      alert(error
+     )
+    }
+  };
+
   return (
     <>
-      <button className="btn btn-success add-student-btn mt-5" onClick={handleShow}>Add Student</button>
+      <button
+        className="btn btn-success add-student-btn mt-5"
+        onClick={handleShow}
+      >
+        Add Student
+      </button>
 
       <Modal show={show} onHide={handleClose}>
         <Modal.Header closeButton>
@@ -49,7 +85,7 @@ function AddStudentModal() {
               />
             </Form.Group>
             <Form.Group className="mb-3" controlId="formStudentClass">
-              <Form.Label>Class</Form.Label>
+              <Form.Label>Course</Form.Label>
               <Form.Control
                 type="text"
                 placeholder="Enter class"
@@ -70,8 +106,8 @@ function AddStudentModal() {
           <Button variant="secondary" onClick={handleClose}>
             Close
           </Button>
-          <Button variant="primary" onClick={handleClose}>
-            Save Changes
+          <Button variant="primary" onClick={addStudent}>
+            Add Student
           </Button>
         </Modal.Footer>
       </Modal>

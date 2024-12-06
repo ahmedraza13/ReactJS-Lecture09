@@ -8,7 +8,7 @@ function App() {
     <>
       <Header />
       <div className='d-flex justify-content-center'>
-      <AddStudentModal/>
+    
       </div>
       <StudentTable/>
     </>

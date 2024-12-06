@@ -1,6 +1,7 @@
 function TableItem(props) {
   return (
     <tr>
+      <td>{props.data.id}</td>
       <td>{props.data.studentName}</td>
       <td>{props.data.email}</td>
       <td>{props.data.rollNo}</td>
