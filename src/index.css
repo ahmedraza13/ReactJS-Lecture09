@@ -1,68 +1,147 @@
-:root {
-  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
-  font-weight: 400;
 
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
-
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+*{
+  margin: 0px;
+  padding: 0px;
+  box-sizing: border-box;
 }
-
-a {
-  font-weight: 500;
-  color: #646cff;
-  text-decoration: inherit;
-}
-a:hover {
-  color: #535bf2;
-}
-
-body {
-  margin: 0;
+.header-logo {
   display: flex;
-  place-items: center;
-  min-width: 320px;
-  min-height: 100vh;
+  justify-content: center;
+  align-items: center;
+  border: 2px solid white; /* White border */
+  border-radius: 10px; /* Rounded corners for a smoother look */
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3); /* Darker shadow for contrast */
+  background-color: rgba(255, 255, 255, 0.1); /* Subtle background to enhance visibility */
+  padding-top: 10px;
+  padding-bottom: 10px;
 }
 
-h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
+/* AddStudentForm.css */
+
+/* Modal container */
+.modal-content {
+  border-radius: 12px;
+  border: none;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease-in-out;
+}
+
+.modal-header {
+  background-color: #007bff;
+  color: white;
+  border-top-left-radius: 12px;
+  border-top-right-radius: 12px;
+  font-size: 1.25rem;
+  font-weight: bold;
+  padding: 1rem;
+}
+
+.modal-body {
+  background-color: #f9f9f9;
+  padding: 2rem;
+}
+
+.modal-footer {
+  border-bottom-left-radius: 12px;
+  border-bottom-right-radius: 12px;
+  padding: 1rem;
+  display: flex;
+  justify-content: space-between;
 }
 
 button {
-  border-radius: 8px;
-  border: 1px solid transparent;
-  padding: 0.6em 1.2em;
-  font-size: 1em;
-  font-weight: 500;
-  font-family: inherit;
-  background-color: #1a1a1a;
-  cursor: pointer;
-  transition: border-color 0.25s;
-}
-button:hover {
-  border-color: #646cff;
-}
-button:focus,
-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
+  font-weight: bold;
+  transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
-@media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
-  }
-  a:hover {
-    color: #747bff;
-  }
-  button {
-    background-color: #f9f9f9;
-  }
+button:hover {
+  transform: translateY(-2px);
+}
+
+/* Close Button */
+button.close {
+  background-color: #ff4d4d;
+  color: white;
+  border-radius: 8px;
+  padding: 0.5rem 1rem;
+  border: none;
+}
+
+button.close:hover {
+  background-color: #ff3333;
+}
+
+/* Save Button */
+button.save {
+  background-color: #28a745;
+  color: white;
+  border-radius: 8px;
+  padding: 0.5rem 1rem;
+  border: none;
+}
+
+button.save:hover {
+  background-color: #218838;
+}
+
+/* Form Input Styling */
+.form-control {
+  border-radius: 8px;
+  border: 2px solid #ccc;
+  padding: 12px;
+  transition: all 0.3s ease;
+}
+
+.form-control:focus {
+  border-color: #007bff;
+  box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+}
+
+.form-group label {
+  font-size: 1rem;
+  font-weight: bold;
+  color: #333;
+}
+
+button.primary {
+  background-color: #007bff;
+  color: white;
+  border-radius: 8px;
+  padding: 0.5rem 1rem;
+  border: none;
+}
+
+button.primary:hover {
+  background-color: #0056b3;
+}
+
+/* Add Student Button */
+.add-student-button {
+
+  color: white;
+  font-weight: bold;
+  border-radius: 8px;
+  padding: 0.5rem 1rem;
+  display: flex;
+  align-items: center;
+  transition: all 0.3s ease;
+}
+
+.add-student-button:hover {
+  background-color: #0873b9;
+}
+
+.add-student-button i {
+  margin-right: 8px;
+}
+
+tr{
+  text-align: center;
+}
+
+
+@media screen and (max-width: 750px) {
+ tr{
+  font-size: 8px;
+ }
 }
