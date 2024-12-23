@@ -2,13 +2,49 @@ import { useState } from "react";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import Form from "react-bootstrap/Form";
-import { FaUserPlus, FaSave, FaTimes } from "react-icons/fa"; // Importing icons for the buttons
-
+import { FaUserPlus, FaSave, FaTimes } from "react-icons/fa"; 
+import * as yup from "yup";
 function AddStudentForm() {
   const [show, setShow] = useState(false);
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
+
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("")
+  const [contact, setContact] = useState()
+  const [rollNo, setRollNo] = useState()
+  const [course, setCourse] = useState("")
+
+  let schema = yup.object().shape({
+    name: yup.string().max(10, "Name must not exceed 10 characters").min(3, "Name must be at least 3 characters").required("Name is required"),
+    email: yup.string().email("Invalid email format").required("Email is required"),
+    contact: yup.string().matches(/^\d{11}$/, "Contact must be exactly 11 digits").required("Contact is required"),
+    rollNo: yup.string().matches(/^\d{5}$/, "Roll number must be exactly 5 digits").required("Roll number is required"),
+    course: yup.string().required("Course is required")
+  });
+
+  const handleSubmit = async () => {
+    let data = {
+      name,
+      email,
+      contact,
+      rollNo,
+      course
+    }
+
+  
+
+    try {
+      let result = await schema.validate(data)
+      console.log("schema result", result)
+      console.log("Schema Matched")
+    }
+    
+    catch(error) {
+      console.log("error", error)
+    }
+  }
 
   return (
     <>
@@ -32,6 +68,8 @@ function AddStudentForm() {
                 type="text"
                 placeholder="Enter Student Name"
                 name="name"
+                onChange={(e) => setName(e.target.value)}
+              
               />
             </Form.Group>
 
@@ -41,6 +79,7 @@ function AddStudentForm() {
                 type="email"
                 placeholder="Enter Email"
                 name="email"
+                onChange={(e) => setEmail(e.target.value)}
               />
             </Form.Group>
 
@@ -50,6 +89,7 @@ function AddStudentForm() {
                 type="text"
                 placeholder="Enter Contact Number"
                 name="contact"
+                onChange={(e) => setContact(e.target.value)}
               />
             </Form.Group>
 
@@ -59,18 +99,19 @@ function AddStudentForm() {
                 type="text"
                 placeholder="Enter Roll Number"
                 name="rollNo"
+                onChange={(e) => setRollNo(e.target.value)}
               />
             </Form.Group>
 
             <Form.Group controlId="course" className="mb-3">
               <Form.Label>Course</Form.Label>
-              <Form.Select name="course">
+              <Form.Select name="course" onChange={(e) => setCourse(e.target.value)}>
                 <option value="">Select a Course</option>
-                <option value="math">Web and Mobile App Development</option>
-                <option value="science">Flutter Development</option>
-                <option value="history">Python</option>
-                <option value="english">Graphic Designing</option>
-                <option value="art">Video Animation</option>
+                <option value="Web and Mobile App Development">Web and Mobile App Development</option>
+                <option value="Flutter Development">Flutter Development</option>
+                <option value="Python">Python</option>
+                <option value="Graphic Designing">Graphic Designing</option>
+                <option value="Video Animation">Video Animation</option>
               </Form.Select>
             </Form.Group>
           </Form>
@@ -79,8 +120,8 @@ function AddStudentForm() {
           <Button variant="secondary" onClick={handleClose} className="close">
             <FaTimes className="me-2" /> Close
           </Button>
-          <Button variant="primary" className="save">
-            <FaSave className="me-2" /> Save Changes
+          <Button variant="primary" className="save" onClick={handleSubmit}>
+            <FaSave className="me-2" /> Add Course
           </Button>
         </Modal.Footer>
       </Modal>

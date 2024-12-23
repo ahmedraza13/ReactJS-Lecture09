@@ -2,6 +2,7 @@ import { useState } from "react";
 import Table from 'react-bootstrap/Table';
 import Header from "../../components/Header";
 import AddStudentForm from "../../components/AddStudentForm";
+import TableItem from "../../components/TableItem";
 
 
 
@@ -33,6 +34,16 @@ function Home() {
     },
   ]);
 
+  const onDeleteHandler = (id) => {
+    let newData = data.filter((item, index) => {
+        return (
+          item.id !== id
+        )
+    })
+    setData(newData)
+   
+  }
+
   return (
     <>
       <Header />
@@ -53,35 +64,11 @@ function Home() {
            
           </tr>
         </thead>
-        <tbody>
-          <tr>
-            <td>1</td>
-            <td>Ahmed Raza</td>
-            <td>ahmedraza@gmail.com</td>
-            <td>03142322336</td>
-            <td>97745</td>
-            <td>Web Development</td>
-            <td>Edit</td>
-          </tr>
-          <tr>
-            <td>2</td>
-            <td>Fuzail</td>
-            <td>fuzailraza@gmail.com</td>
-            <td>03343037456</td>
-            <td>97746</td>
-            <td>Flutter Development</td>
-            <td>Edit</td>
-          </tr>
-          <tr>
-            <td>3</td>
-            <td>Umair</td>
-            <td>umairsiddiq@gmail.com</td>
-            <td>03333104530</td>
-            <td>97747</td>
-            <td>Graphic Designiing</td>
-            <td>Edit</td>
-          </tr>
-        </tbody>
+     {data.map((item, index) => {
+      return (
+          <TableItem data={item} key={index} onDeleteHandler={onDeleteHandler}/>
+      )
+     })}
       </Table>
      
     </div>

@@ -135,9 +135,11 @@ button.primary:hover {
   margin-right: 8px;
 }
 
-tr{
+tr {
   text-align: center;
 }
+
+
 
 
 @media screen and (max-width: 750px) {
